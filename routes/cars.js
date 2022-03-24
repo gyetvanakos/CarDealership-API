@@ -4,7 +4,9 @@ const cars = require ("../models/cars");
 const { verifyToken } = require("../validation");
 
 
-router.post("/", verifyToken, (req, res) => {
+//Create
+
+router.post("/", /*verifyToken,*/ (req, res) => {
 
     data = req.body;
 
@@ -13,6 +15,8 @@ router.post("/", verifyToken, (req, res) => {
     .catch(err => {res.status(500).send({message: err.message });})
 });
 
+
+//Read
 
 router.get("/", (req, res) => {
     cars.find()
@@ -64,6 +68,8 @@ router.get("/:id", (req, res) => {
     .catch(err => {res.status(500).send({message: err.message });})
 });
 
+
+//Update
 
 router.put("/:id", verifyToken, (req, res) => {
 
