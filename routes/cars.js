@@ -25,54 +25,11 @@ router.post("/", /*verifyToken,*/ (req, res) => {
 
 //Read
 
-router.get("/", async (req, res) => {
-    try{
-        let carsCache = cache.get('allCars');
-
-
-        if(!carsCache) {
-            let data = await cars.find();
-            //const timeToLiveSecs = 30;
-            console.log("No cache data found. Fetching from DB....");
-            cache.set('allCars', data, 30);
-
-            res.send((data));
-        }
-
-        else{
-            console.log("Cache found :]");
-            res.send((carsCache));
-        }
-
-    }
-    catch(err){
-        res.status(500).send({message: err.message})
-    }
-    /*cars.find()
+-router.get("/", (req, res) => {
+    cars.find()
     .then(data => {res.send(data);})
-    .catch(err => {res.status(500).send({message: err.message });})*/
 });
 
-/*router.get("/cars/:color", function (req, res) {
-    var cars = req.db.get ('cars'),
-    query = req.query;
-    if (query.hasOwnProperty("color")){
-        query["color"] = parseInt(query.color);
-
-    cars.find(query, function (err, docs) {
-        res.json({length: docs.length, records: docs});    
-        });
-    }});*/
-
-/*router.get("/cars/:color", (req, res) => {
-    const color = req.params.color;
-
-    let filterColor = req.params.color;
-    
-    cars.findOne({ color: filterColor })
-    .then(data => {res.send(data);})
-    .catch(err => {res.status(500).send({message: err.message });})
-});*/
 
 router.get("/price/:operator/:price", (req, res) => {
     const operator = req.params.operator;

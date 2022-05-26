@@ -1,13 +1,27 @@
 process.env.NODE_ENV = 'test';
 
 const Cars = require('../models/cars');
-const chai = require('chai');
+const User = require('../models/user');
+
+
+beforeEach((done) => {
+    Cars.deleteMany({}, function (err) {});
+    User.deleteMany({}, function(err) {});
+    done();
+});
+
+afterEach((done) => {
+    Cars.deleteMany({}, function (err) {});
+    User.deleteMany({}, function(err) {});
+    done();
+});
+/*const chai = require('chai');
 const expect = chai.expect;
 const should = chai.should();
 const chaiHttp = require('chai-http');
-const server = require('../server');
+const server = require('../server');*/
 
-chai.use(chaiHttp);
+/*chai.use(chaiHttp);
 
 before((done) => {
     Cars.deleteMany({}, function(err){});
@@ -78,4 +92,4 @@ describe('/First test collection', function (){
         expect(actualVal).to.be.equal(expectedVal);
 
     })
-})
+})*/

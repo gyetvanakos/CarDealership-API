@@ -25,8 +25,8 @@ components:
           type: string
         price:
           type: number
-        inStock:
-          type: boolean
+        color:
+          type: string
     
     User:
       type: object
