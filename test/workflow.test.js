@@ -1,4 +1,4 @@
-/*const chai = require('chai');
+const chai = require('chai');
 const expect = chai.expect;
 const chaiHttp = require('chai-http');
 const cars = require('../models/cars');
@@ -84,7 +84,7 @@ describe('User workflow tests', () => {
     });
 
 
-    it('should register + login a user, create product and delete it from DB', (done) => {
+    /*it('should register + login a user, create product and delete it from DB', (done) => {
 
         // 1) Register new user
         let user = {
@@ -181,5 +181,5 @@ describe('User workflow tests', () => {
                 expect(res.body.error).to.be.equal("\"password\" length must be at least 6 characters long");  
                 done();              
             });
-    });
-});*/
+    });*/
+});
