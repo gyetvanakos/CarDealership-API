@@ -35,17 +35,3 @@ jobs:
             TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
             JWT_EXPIRES_IN: ${{ secrets.JWT_EXPIRES_IN }}
             
-
-   deploy:
-    name: Deploy
-    needs: [test]
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: add remote origin to heroku
-        run: git remote add heroku         

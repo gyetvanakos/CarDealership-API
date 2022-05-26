@@ -2,6 +2,10 @@ const router = require ("express").Router();
 const req = require("express/lib/request");
 const cars = require ("../models/cars");
 const { verifyToken } = require("../validation");
+const NodeCache = require('node-cache');
+//stdTTL (standard time to live)
+const cache = new NodeCache({stdTTL: 600});
+
 
 
 //Create
@@ -11,17 +15,42 @@ router.post("/", /*verifyToken,*/ (req, res) => {
     data = req.body;
 
     cars.insertMany(data)
-    .then(data => {res.send(data);})
+    .then(data => {
+        cache.flushAll();
+        res.send(data);})
     .catch(err => {res.status(500).send({message: err.message });})
 });
 
 
+
 //Read
 
-router.get("/", (req, res) => {
-    cars.find()
+router.get("/", async (req, res) => {
+    try{
+        let carsCache = cache.get('allCars');
+
+
+        if(!carsCache) {
+            let data = await cars.find();
+            //const timeToLiveSecs = 30;
+            console.log("No cache data found. Fetching from DB....");
+            cache.set('allCars', data, 30);
+
+            res.send((data));
+        }
+
+        else{
+            console.log("Cache found :]");
+            res.send((carsCache));
+        }
+
+    }
+    catch(err){
+        res.status(500).send({message: err.message})
+    }
+    /*cars.find()
     .then(data => {res.send(data);})
-    .catch(err => {res.status(500).send({message: err.message });})
+    .catch(err => {res.status(500).send({message: err.message });})*/
 });
 
 /*router.get("/cars/:color", function (req, res) {
