@@ -30,6 +30,23 @@ router.post("/", /*verifyToken,*/ (req, res) => {
     .then(data => {res.send(data);})
 });
 
+//get cars based on brands
+router.get("/:brand", (req, res) => {
+    cars.find({ brand: req.params.brand })
+
+    .then(data => {res.send(data);})
+    .catch(err => {res.status(500).send({message: err.message });})
+});
+
+//get cars based on model
+router.get("/:brand/:model", (req, res) => {
+    cars.find({ brand: req.params.brand })
+    cars.find({ model: req.params.model })
+
+    .then(data => {res.send(data);})
+    .catch(err => {res.status(500).send({message: err.message });})
+});
+
 
 router.get("/price/:operator/:price", (req, res) => {
     const operator = req.params.operator;
