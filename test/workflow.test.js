@@ -141,6 +141,8 @@ describe('User workflow tests', () => {
                                 expect(savedCar.price).to.be.equal(cars.price);
                                 expect(savedCar.color).to.be.equal(cars.color);
 
+
+                                //4) wannabe update
                                 let car = new updatedCar({
                                     brand: "Test Car",
                                     model: "Test Car Description",
@@ -169,7 +171,7 @@ describe('User workflow tests', () => {
                                         });
 
 
-                                    // 4) Delete product
+                                    // 5) Delete product
                                     chai.request(server)
                                         .delete('/api/cars/' + savedCar._id)
                                         .set({
