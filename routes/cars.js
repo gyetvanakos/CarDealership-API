@@ -14,7 +14,7 @@ router.post("/", /*verifyToken,*/ (req, res) => {
 
     data = req.body;
 
-    cars.insertMany(data)
+    cars.create(data)
     .then(data => {
         cache.flushAll();
         res.send(data);})
@@ -78,7 +78,7 @@ router.put("/:id", verifyToken, (req, res) => {
 
     const id = req.params.id;
 
-    cars.findByIdAndUpdate(id, req.body)
+    cars.findByIdAndUpdate(id, req.body, {new:true})
     .then(data => { 
         if(!data)
         {
@@ -86,7 +86,7 @@ router.put("/:id", verifyToken, (req, res) => {
         }
         else
         {
-            res.send({ message: "Car is updated :)"})
+            res.send(data)
         }
     })
     .catch(err => { res.status(500).send({ message: "error updating product with id=" + id }); });
