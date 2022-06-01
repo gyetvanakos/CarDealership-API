@@ -6,7 +6,7 @@ chai.use(chaiHttp);
 
 describe('User workflow tests', () => {
 
-    it('should register + login a user, create Car and verify 1 in DB', (done) => {
+    it('should register + login a user, create car and verify 1 in DB', (done) => {
 
         // 1) Register new user
         let user = {
@@ -35,7 +35,7 @@ describe('User workflow tests', () => {
                         expect(res.status).to.be.equal(200);
                         let token = res.body.data.token;
 
-                        // 3) Create new product
+                        // 3) Create new car
                         let cars = {
                             brand: "Test Car",
                             model: "Test Car Description",
@@ -61,7 +61,7 @@ describe('User workflow tests', () => {
                                 expect(savedCar.price).to.be.equal(cars.price);
                                 expect(savedCar.color).to.be.equal(cars.color);
 
-                                // 4) Verify one product in test DB
+                                // 4) Verify one car in test DB
                                 chai.request(server)
                                     .get('/api/cars')
                                     .end((err, res) => {
@@ -79,7 +79,7 @@ describe('User workflow tests', () => {
     });
 
 
-    it('should register + login a user, create product and delete it from DB', (done) => {
+    it('should register + login a user, create car, update car and delete it from DB', (done) => {
 
         // 1) Register new user
         let user = {
@@ -108,7 +108,7 @@ describe('User workflow tests', () => {
                         expect(res.status).to.be.equal(200);
                         let token = res.body.data.token;
 
-                        // 3) Create new product
+                        // 3) Create new car
                         let car = {
                             brand: "Test Car",
                             model: "Test Car Description",
@@ -135,7 +135,7 @@ describe('User workflow tests', () => {
                                 expect(savedCar.color).to.be.equal(car.color);
 
 
-                                //4) wannabe update
+                                //4) Updates car
                                 chai.request(server)
                                     .put('/api/cars/' + savedCar._id)
                                     .set({
@@ -155,7 +155,7 @@ describe('User workflow tests', () => {
                                         expect(updatedCar.brand).to.be.eql('Bence Test car');
 
 
-                                        // 5) Delete product
+                                        // 5) Delete car
                                         chai.request(server)
                                             .delete('/api/cars/' + savedCar._id)
                                             .set({
